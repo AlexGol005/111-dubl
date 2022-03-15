@@ -10,6 +10,9 @@ Epsilon = 0.0001
 def get_item_ex(x, n):
     return (x ** n) / factorial(n)
 
+def get_item_sin(x, n):
+    return ((-1) ** (n - 1) * x ** (2 * n - 1)) / factorial(2 * n - 1)
+
 def ex(x: Union[int, float]) -> float:
     """
     Calculate value of e^x with Taylor series
@@ -21,7 +24,7 @@ def ex(x: Union[int, float]) -> float:
     for i in count(1, 1):
         current_item = get_item_ex(x, i)
         sum_ += current_item
-        if current_item <= Epsilon:
+        if abs(current_item) <= Epsilon:
             return sum_
 
 def sinx(x: Union[int, float]) -> float:
@@ -32,10 +35,8 @@ def sinx(x: Union[int, float]) -> float:
     :return: sin(x) value
     """
     sum_ = 0
-    n = 1
-    sin_elem = ((-1) ** (n - 1) * x ** (2 * n - 1)) / factorial(2 * n - 1)
-    while sin_elem > Epsilon:
-        sin_elem = ((-1) ** (n - 1) * x ** (2 * n - 1)) / factorial(2 * n - 1)
-        sum_ += sin_elem
-        n += 1
-    return sum_
+    for i in count(1, 1):
+        current_item = get_item_sin(x, i)
+        sum_ += current_item
+        if abs(current_item) < Epsilon:
+            return sum_
