@@ -23,7 +23,10 @@ def fib_iterative(n: int) -> int:
     """
     if n < 0:
         raise ValueError
-    for i in range(n + 1):
-        for j in range(1, n + 1):
-            return i + j
+    a = 0
+    b = 1
+    for i in range(1, n):
+        c = a + b
+        a, b = b, c
+    return c
 
