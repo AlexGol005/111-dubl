@@ -1,4 +1,5 @@
 from typing import List
+from random import choice
 
 
 def sort(container: List[int]) -> List[int]:
@@ -8,4 +9,11 @@ def sort(container: List[int]) -> List[int]:
     :param container: container of elements to be sorted
     :return: container sorted in ascending order
     """
-    return container
+    if not container:
+        return container
+
+    pivot = choice(container)
+
+    return sort([v for v in container if v < pivot]) \
+                + [v for v in container if v == pivot] \
+                + sort([v for v in container if v > pivot])
